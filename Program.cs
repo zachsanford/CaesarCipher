@@ -10,38 +10,68 @@ const string version = "0.1";
 // Integers
 int offset = -1;
 
-// String Builders
-StringBuilder hashedString = new StringBuilder();
+// Strings
+string encryptedMessage;
 
 // Dictionaries
-Dictionary<int, (int position, char letter)> alphabet = new Dictionary<int, (int position, char letter)>()
+Dictionary<int, char> alphabetIndexLetter = new Dictionary<int, char>()
 {
-    { 0, (0, 'a') },
-    { 1, (1, 'b') },
-    { 2, (2, 'c') },
-    { 3, (3, 'd') },
-    { 4, (4, 'e') },
-    { 5, (5, 'f') },
-    { 6, (6, 'g') },
-    { 7, (7, 'h') },
-    { 8, (8, 'i') },
-    { 9, (9, 'j') },
-    { 10, (10, 'k') },
-    { 11, (11, 'l') },
-    { 12, (12, 'm') },
-    { 13, (13, 'n') },
-    { 14, (14, 'o') },
-    { 15, (15, 'p') },
-    { 16, (16, 'q') },
-    { 17, (17, 'r') },
-    { 18, (18, 's') },
-    { 19, (19, 't') },
-    { 20, (20, 'u') },
-    { 21, (21, 'v') },
-    { 22, (22, 'w') },
-    { 23, (23, 'x') },
-    { 24, (24, 'y') },
-    { 25, (25, 'z') }
+    { 0, 'a' },
+    { 1, 'b' },
+    { 2, 'c' },
+    { 3, 'd' },
+    { 4, 'e' },
+    { 5, 'f' },
+    { 6, 'g' },
+    { 7, 'h' },
+    { 8, 'i' },
+    { 9, 'j' },
+    { 10, 'k' },
+    { 11, 'l' },
+    { 12, 'm' },
+    { 13, 'n' },
+    { 14, 'o' },
+    { 15, 'p' },
+    { 16, 'q' },
+    { 17, 'r' },
+    { 18, 's' },
+    { 19, 't' },
+    { 20, 'u' },
+    { 21, 'v' },
+    { 22, 'w' },
+    { 23, 'x' },
+    { 24, 'y' },
+    { 25, 'z' }
+};
+
+Dictionary<char, int> alphabetLetterIndex = new Dictionary<char, int>()
+{
+    { 'a', 0 },
+    { 'b', 1 },
+    { 'c', 2 },
+    { 'd', 3 },
+    { 'e', 4 },
+    { 'f', 5 },
+    { 'g', 6 },
+    { 'h', 7 },
+    { 'i', 8 },
+    { 'j', 9 },
+    { 'k', 10 },
+    { 'l', 11 },
+    { 'm', 12 },
+    { 'n', 13 },
+    { 'o', 14 },
+    { 'p', 15 },
+    { 'q', 16 },
+    { 'r', 17 },
+    { 's', 18 },
+    { 't', 19 },
+    { 'u', 20 },
+    { 'v', 21 },
+    { 'w', 22 },
+    { 'x', 23 },
+    { 'y', 24 },
+    { 'z', 25 }
 };
 
 #endregion
@@ -145,6 +175,7 @@ void MenuSelection()
 
             // 3: Quit the app
             case "3":
+                Clear();
                 Environment.Exit(0);
                 break;
             
@@ -204,7 +235,13 @@ void CreateMessage()
             if (offset >= 0 && offset <= 25)
             {
                 isNotAnInt = false;
-                Exits(1);                
+                encryptedMessage = CreateEncryptedMessage(offset);
+                DisplayMenuBanner();
+                WriteLine("\nYour encrypted message:\n");
+                WriteLine($"  {encryptedMessage}");
+                Write("\nPress any key to continue...");
+                ReadLine();
+                MenuSelection();
             }
             else
             {
@@ -251,6 +288,101 @@ void DecryptMessage()
 void Exits(int exitRoute)
 {
     WriteLine(exitRoute.ToString());
+}
+
+/*
+ * 
+ * CreateEncryptedMessage(int userOffset)
+ * 
+ * This method is the method that creates an encrypted
+ * Caesar Cipher message. Uses the alpabet and an offset
+ * that is chosen by the user.
+ * 
+ */
+
+string CreateEncryptedMessage(int userOffset)
+{
+
+    // Variables
+    StringBuilder hashedString = new StringBuilder();
+    string userPlaintextString = "";
+    int tempIndex = 0;
+
+    // Get the user's plaintext message
+    DisplayMenuBanner();
+    Write("\nPlease enter the message you want to encrypt >> ");
+    userPlaintextString = ReadLine();
+
+    // Iterate though the userPlaintextString and encrypt it.
+    foreach (char userChar in userPlaintextString.ToLower())
+    {
+
+        // Check for a space char
+        if (userChar == ' ')
+        {
+
+            // Run GenerateSpaceChar() appened it to the stringbuilder
+            hashedString.Append(GenerateSpaceChar());
+
+        }
+        else
+        {
+
+            // Get the index from the user char
+            tempIndex = alphabetLetterIndex[userChar];
+
+            // Add the offset to the tempIndex
+            tempIndex = tempIndex + userOffset;
+
+            // If the tempIndex is greater than 25
+            if (tempIndex > 25)
+            {
+
+                // Subtract 26 from tempIndex to loop back to the
+                // beginning of the alphabet
+                tempIndex = tempIndex - 26;
+
+                // Get the letter that corresponds with the new index
+                // and append it to the stringbuilder
+                hashedString.Append(alphabetIndexLetter[tempIndex]);
+
+            }
+            else
+            {
+
+                // Get the letter that corresponds with the new index
+                // and append it to the stringbuilder
+                hashedString.Append(alphabetIndexLetter[tempIndex]);
+
+            }
+
+        }
+
+    }
+
+    return hashedString.ToString();
+
+}
+
+/*
+ * 
+ * GenerateSpaceChar()
+ * 
+ * Generates a random special character to take
+ * place of a space in the user's plaintext
+ * string.
+ * 
+ */
+
+char GenerateSpaceChar()
+{
+
+    // Variables
+    char[] specialCharArray = { '/', '*', '-', '+' };
+    Random random = new Random();
+
+    return specialCharArray[random.Next(specialCharArray.Length)];
+
 }
 
 #endregion
