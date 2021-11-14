@@ -1,4 +1,4 @@
-# CaesarCipher
+# Caesar Cipher
 A simple command line Caesar Cipher. App was used to test .NET 6 and C# 10.
 <hr />
 
