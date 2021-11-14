@@ -12,6 +12,7 @@ int offset = -1;
 
 // Strings
 string encryptedMessage;
+string decryptedMessage;
 
 // Dictionaries
 Dictionary<int, char> alphabetIndexLetter = new Dictionary<int, char>()
@@ -234,6 +235,7 @@ void CreateMessage()
             // Test to see if the integer is between 0 - 25 ? continue : restart the while loop.
             if (offset >= 0 && offset <= 25)
             {
+
                 isNotAnInt = false;
                 encryptedMessage = CreateEncryptedMessage(offset);
                 DisplayMenuBanner();
@@ -242,18 +244,23 @@ void CreateMessage()
                 Write("\nPress any key to continue...");
                 ReadLine();
                 MenuSelection();
+
             }
             else
             {
+
                 // Show the intermittent message
                 intermittentMessageExists = true;
+
             }
 
         }
         else
         {
+            
             // Show the intermittent message
             intermittentMessageExists = true;
+
         }
 
     }
@@ -271,23 +278,68 @@ void CreateMessage()
 void DecryptMessage()
 {
 
-    // TESTING
-    Exits(2);
+    // Variables
+    bool isNotAnInt = true;
+    bool successfullyConverted = false;
+    bool intermittentMessageExists = false;
 
-}
+    // User needs to enter an offset (integer). If the user
+    // input is not an integer, reiterate.
+    while (isNotAnInt)
+    {
 
-/*
- * 
- * Exits(int exitRoute)
- * 
- * This method is for testing all of the menu routes.
- * Should not exist in a production environment.
- * 
- */
+        // Display the banner
+        DisplayMenuBanner();
 
-void Exits(int exitRoute)
-{
-    WriteLine(exitRoute.ToString());
+        // Display the intermittent message
+        if (intermittentMessageExists)
+        {
+            WriteLine($"\nNot a correct offset!\n");
+        }
+        else
+        {
+            WriteLine("");
+        }
+
+        Write("Please enter a cypher offset (0 - 25) >> ");
+        successfullyConverted = Int32.TryParse(ReadLine(), out offset);
+
+        // If it is an integer ? continue : restart the while loop.
+        if (successfullyConverted)
+        {
+
+            // Test to see if the integer is between 0 - 25 ? continue : restart the while loop.
+            if (offset >= 0 && offset <= 25)
+            {
+
+                decryptedMessage = DecryptEncryptedMessage(offset);
+                DisplayMenuBanner();
+                WriteLine("\nYour decrypted message:\n");
+                WriteLine($"  {decryptedMessage}");
+                Write("\nPress any key to continue...");
+                ReadLine();
+                MenuSelection();
+
+            }
+            else
+            {
+
+                // Show the intermittent message
+                intermittentMessageExists = true;
+
+            }
+
+        }
+        else
+        {
+
+            // Show the intermittent message
+            intermittentMessageExists = true;
+
+        }
+
+    }
+
 }
 
 /*
@@ -361,6 +413,79 @@ string CreateEncryptedMessage(int userOffset)
     }
 
     return hashedString.ToString();
+
+}
+
+/*
+ * 
+ * DecryptEncryptedMessage(int userOffset)
+ * 
+ * This method decrypts an encrypted Caesar Cypher message. Method
+ * takes a user offset and decrypts the encrypted message.
+ * 
+ */
+
+string DecryptEncryptedMessage(int userOffset)
+{
+
+    // Variables
+    StringBuilder plaintextString = new StringBuilder();
+    string userEncryptedString = "";
+    int tempIndex = 0;
+
+    // Get the user's encrypted message
+    DisplayMenuBanner();
+    Write("\nPlease enter the message you want to decrypt >> ");
+    userEncryptedString = ReadLine();
+
+    // Iterate though the userEncryptedString and decrypt it.
+    foreach (char userChar in userEncryptedString)
+    {
+
+        // Check for a special char
+        if (userChar == '/' || userChar == '*' || userChar == '-' || userChar == '+')
+        {
+
+            // Append a space
+            plaintextString.Append(' ');
+
+        }
+        else
+        {
+
+            // Get the index from the user char
+            tempIndex = alphabetLetterIndex[userChar];
+
+            // Subtract the offset from the tempIndex
+            tempIndex = tempIndex - userOffset;
+
+            // If the tempIndex is less than zero
+            if (tempIndex < 0)
+            {
+
+                // Add 26 to tempIndex to loop back to the
+                // end of the alphabet
+                tempIndex = tempIndex + 26;
+
+                // Get the letter that corresponds with the new index
+                // and append it to the stringbuilder
+                plaintextString.Append(alphabetIndexLetter[tempIndex]);
+
+            }
+            else
+            {
+
+                // Get the letter that corresponds with the new index
+                // and append it to the stringbuilder
+                plaintextString.Append(alphabetIndexLetter[tempIndex]);
+
+            }
+
+        }
+
+    }
+
+    return plaintextString.ToString();
 
 }
 
