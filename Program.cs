@@ -14,6 +14,14 @@ int offset = -1;
 string encryptedMessage;
 string decryptedMessage;
 
+// Chars
+char[] specialCharArray = { 
+    '`',
+    '~',
+    '+',
+    '='
+};
+
 // Dictionaries
 Dictionary<int, char> alphabetIndexLetter = new Dictionary<int, char>()
 {
@@ -42,7 +50,71 @@ Dictionary<int, char> alphabetIndexLetter = new Dictionary<int, char>()
     { 22, 'w' },
     { 23, 'x' },
     { 24, 'y' },
-    { 25, 'z' }
+    { 25, 'z' },
+    { 26, ',' },
+    { 27, '.' },
+    { 28, '<' },
+    { 29, '>' },
+    { 30, '?' },
+    { 31, '/' },
+    { 32, ':' },
+    { 33, ';' },
+    { 34, '"' },
+    { 35, '\'' },
+    { 36, '{' },
+    { 37, '[' },
+    { 38, '}' },
+    { 39, ']' },
+    { 40, '|' },
+    { 41, '\\' },
+    { 42, 'Z' },
+    { 43, 'Y' },
+    { 44, 'X' },
+    { 45, 'W' },
+    { 46, 'V' },
+    { 47, 'U' },
+    { 48, 'T' },
+    { 49, 'S' },
+    { 50, 'R' },
+    { 51, 'Q' },
+    { 52, 'P' },
+    { 53, 'O' },
+    { 54, 'N' },
+    { 55, 'M' },
+    { 56, 'L' },
+    { 57, 'K' },
+    { 58, 'J' },
+    { 59, 'I' },
+    { 60, 'H' },
+    { 61, 'G' },
+    { 62, 'F' },
+    { 63, 'E' },
+    { 64, 'D' },
+    { 65, 'C' },
+    { 66, 'B' },
+    { 67, 'A' },
+    { 68, '!' },
+    { 69, '1' },
+    { 70, '@' },
+    { 71, '2' },
+    { 72, '#' },
+    { 73, '3' },
+    { 74, '$' },
+    { 75, '4' },
+    { 76, '%' },
+    { 77, '5' },
+    { 78, '^' },
+    { 79, '6' },
+    { 80, '&' },
+    { 81, '7' },
+    { 82, '*' },
+    { 83, '8' },
+    { 84, '(' },
+    { 85, '9' },
+    { 86, ')' },
+    { 87, '0' },
+    { 88, '_' },
+    { 89, '-' }
 };
 
 Dictionary<char, int> alphabetLetterIndex = new Dictionary<char, int>()
@@ -72,7 +144,71 @@ Dictionary<char, int> alphabetLetterIndex = new Dictionary<char, int>()
     { 'w', 22 },
     { 'x', 23 },
     { 'y', 24 },
-    { 'z', 25 }
+    { 'z', 25 },
+    { ',', 26 },
+    { '.', 27 },
+    { '<', 28 },
+    { '>', 29 },
+    { '?', 30 },
+    { '/', 31 },
+    { ':', 32 },
+    { ';', 33 },
+    { '"', 34 },
+    { '\'', 35 },
+    { '{', 36 },
+    { '[', 37 },
+    { '}', 38 },
+    { ']', 39 },
+    { '|', 40 },
+    { '\\', 41 },
+    { 'Z', 42 },
+    { 'Y', 43 },
+    { 'X', 44 },
+    { 'W', 45 },
+    { 'V', 46 },
+    { 'U', 47 },
+    { 'T', 48 },
+    { 'S', 49 },
+    { 'R', 50 },
+    { 'Q', 51 },
+    { 'P', 52 },
+    { 'O', 53 },
+    { 'N', 54 },
+    { 'M', 55 },
+    { 'L', 56 },
+    { 'K', 57 },
+    { 'J', 58 },
+    { 'I', 59 },
+    { 'H', 60 },
+    { 'G', 61 },
+    { 'F', 62 },
+    { 'E', 63 },
+    { 'D', 64 },
+    { 'C', 65 },
+    { 'B', 66 },
+    { 'A', 67 },
+    { '!', 68 },
+    { '1', 69 },
+    { '@', 70 },
+    { '2', 71 },
+    { '#', 72 },
+    { '3', 73 },
+    { '$', 74 },
+    { '4', 75 },
+    { '%', 76 },
+    { '5', 77 },
+    { '^', 78 },
+    { '6', 79 },
+    { '&', 80 },
+    { '7', 81 },
+    { '*', 82 },
+    { '8', 83 },
+    { '(', 84 },
+    { '9', 85 },
+    { ')', 86 },
+    { '0', 87 },
+    { '_', 88 },
+    { '-', 89 }
 };
 
 #endregion
@@ -80,6 +216,12 @@ Dictionary<char, int> alphabetLetterIndex = new Dictionary<char, int>()
 #region Main
 
 MenuSelection();
+//WriteLine("\u000a");
+//WriteLine("\u000b");
+//WriteLine("\u000c");
+//WriteLine("\u000d");
+//WriteLine("\u000e");
+//WriteLine("\u000f");
 
 #endregion
 
@@ -225,15 +367,15 @@ void CreateMessage()
             WriteLine("");
         }
        
-        Write("Please enter a cypher offset (0 - 25) >> ");
+        Write("Please enter a cypher offset (0 - 89) >> ");
         successfullyConverted = Int32.TryParse(ReadLine(), out offset);
 
         // If it is an integer ? continue : restart the while loop.
         if (successfullyConverted)
         {
 
-            // Test to see if the integer is between 0 - 25 ? continue : restart the while loop.
-            if (offset >= 0 && offset <= 25)
+            // Test to see if the integer is between 0 - 89 ? continue : restart the while loop.
+            if (offset >= 0 && offset <= 89)
             {
 
                 isNotAnInt = false;
@@ -301,15 +443,15 @@ void DecryptMessage()
             WriteLine("");
         }
 
-        Write("Please enter a cypher offset (0 - 25) >> ");
+        Write("Please enter a cypher offset (0 - 89) >> ");
         successfullyConverted = Int32.TryParse(ReadLine(), out offset);
 
         // If it is an integer ? continue : restart the while loop.
         if (successfullyConverted)
         {
 
-            // Test to see if the integer is between 0 - 25 ? continue : restart the while loop.
-            if (offset >= 0 && offset <= 25)
+            // Test to see if the integer is between 0 - 89 ? continue : restart the while loop.
+            if (offset >= 0 && offset <= 89)
             {
 
                 decryptedMessage = DecryptEncryptedMessage(offset);
@@ -366,7 +508,7 @@ string CreateEncryptedMessage(int userOffset)
     userPlaintextString = ReadLine();
 
     // Iterate though the userPlaintextString and encrypt it.
-    foreach (char userChar in userPlaintextString.ToLower())
+    foreach (char userChar in userPlaintextString)
     {
 
         // Check for a space char
@@ -374,7 +516,7 @@ string CreateEncryptedMessage(int userOffset)
         {
 
             // Run GenerateSpaceChar() appened it to the stringbuilder
-            hashedString.Append(GenerateSpaceChar());
+            hashedString.Append(GenerateSpaceChar(specialCharArray));
 
         }
         else
@@ -386,13 +528,13 @@ string CreateEncryptedMessage(int userOffset)
             // Add the offset to the tempIndex
             tempIndex = tempIndex + userOffset;
 
-            // If the tempIndex is greater than 25
-            if (tempIndex > 25)
+            // If the tempIndex is greater than 89
+            if (tempIndex > 89)
             {
 
                 // Subtract 26 from tempIndex to loop back to the
                 // beginning of the alphabet
-                tempIndex = tempIndex - 26;
+                tempIndex = tempIndex - 90;
 
                 // Get the letter that corresponds with the new index
                 // and append it to the stringbuilder
@@ -443,7 +585,7 @@ string DecryptEncryptedMessage(int userOffset)
     {
 
         // Check for a special char
-        if (userChar == '/' || userChar == '*' || userChar == '-' || userChar == '+')
+        if (specialCharArray.Contains(userChar))
         {
 
             // Append a space
@@ -465,7 +607,7 @@ string DecryptEncryptedMessage(int userOffset)
 
                 // Add 26 to tempIndex to loop back to the
                 // end of the alphabet
-                tempIndex = tempIndex + 26;
+                tempIndex = tempIndex + 90;
 
                 // Get the letter that corresponds with the new index
                 // and append it to the stringbuilder
@@ -491,7 +633,7 @@ string DecryptEncryptedMessage(int userOffset)
 
 /*
  * 
- * GenerateSpaceChar()
+ * GenerateSpaceChar(char[] array)
  * 
  * Generates a random special character to take
  * place of a space in the user's plaintext
@@ -499,14 +641,13 @@ string DecryptEncryptedMessage(int userOffset)
  * 
  */
 
-char GenerateSpaceChar()
+char GenerateSpaceChar(char[] array)
 {
 
     // Variables
-    char[] specialCharArray = { '/', '*', '-', '+' };
     Random random = new Random();
 
-    return specialCharArray[random.Next(specialCharArray.Length)];
+    return array[random.Next(array.Length)];
 
 }
 
