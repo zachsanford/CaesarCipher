@@ -34,7 +34,7 @@ You can download as a compressed file or if you have git, run the following:
 
 ### How to run
 
-Once .NET 6.0 is installed on the target machine, navigate to the root and run the following:
+Once .NET 6.0 is installed on the target machine and you have downloaded the repo, navigate to the repo's root and run the following:
 
 
 `C:\CaesarCypher\> dotnet run`
@@ -49,6 +49,6 @@ The app will allow you to encrypt a message or decrypt a message. Both options r
 
 ### Issues
 
-If there are any issues you can add an Issues to this repo or you can reach out to me on [Twitter](https://www.twitter.com/zachsanford)
+If there are any issues you can add an Issue to this repo or you can reach out to me on [Twitter](https://www.twitter.com/zachsanford)
 
 More information on the Caesar Cipher can be found [here](https://en.wikipedia.org/wiki/Caesar_cipher)
