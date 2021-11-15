@@ -28,3 +28,6 @@ Once .NET 6.0 is installed on the target machine, navigate to the root and run t
 The app will allow you to encrypt a message or decrypt a message. Both options require an offset to the alphabet.
 
 *NOTE: When you encrypt a message, you will have to use the same offset to decrypt that message.*
+<hr />
+
+More information on the Caesar Cipher can be found [here](https://en.wikipedia.org/wiki/Caesar_cipher)
