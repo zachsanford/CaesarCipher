@@ -216,12 +216,6 @@ Dictionary<char, int> alphabetLetterIndex = new Dictionary<char, int>()
 #region Main
 
 MenuSelection();
-//WriteLine("\u000a");
-//WriteLine("\u000b");
-//WriteLine("\u000c");
-//WriteLine("\u000d");
-//WriteLine("\u000e");
-//WriteLine("\u000f");
 
 #endregion
 
