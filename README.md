@@ -10,7 +10,7 @@
 *              _/_/_/   _/_/_/                *
 *                                             *
 ***********************************************
-*                CAESAR CYPHER                *
+*                CAESAR CIPHER                *
 ***********************************************
 *                VERSION:  0.1                *
 ***********************************************
@@ -37,7 +37,7 @@ You can download as a compressed file or if you have git, run the following:
 Once .NET 6.0 is installed on the target machine and you have downloaded the repo, navigate to the repo's root and run the following:
 
 
-`C:\CaesarCypher\> dotnet run`
+`C:\CaesarCipher\> dotnet run`
 
 
 ### Usage
