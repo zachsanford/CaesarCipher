@@ -244,7 +244,7 @@ void DisplayMenuBanner()
     WriteLine("*              _/_/_/   _/_/_/                *");
     WriteLine("*                                             *");
     WriteLine("***********************************************");
-    WriteLine("*                CAESAR CYPHER                *");
+    WriteLine("*                CAESAR CIPHER                *");
     WriteLine("***********************************************");
     WriteLine($"*                VERSION:  {version}                *");
     WriteLine("***********************************************");
@@ -290,7 +290,7 @@ void MenuSelection()
         WriteLine("Please make a selection from one of the following options:\n");
         WriteLine("  1) Create a new message");
         WriteLine("  2) Decrypt an existing message");
-        WriteLine("  3) Quit Caesar Cypher\n");
+        WriteLine("  3) Quit Caesar Cipher\n");
         Write("Your selection >> ");
         userSelection = ReadLine();
 
@@ -361,7 +361,7 @@ void CreateMessage()
             WriteLine("");
         }
        
-        Write("Please enter a cypher offset (0 - 89) >> ");
+        Write("Please enter a cipher offset (0 - 89) >> ");
         successfullyConverted = Int32.TryParse(ReadLine(), out offset);
 
         // If it is an integer ? continue : restart the while loop.
@@ -437,7 +437,7 @@ void DecryptMessage()
             WriteLine("");
         }
 
-        Write("Please enter a cypher offset (0 - 89) >> ");
+        Write("Please enter a cipher offset (0 - 89) >> ");
         successfullyConverted = Int32.TryParse(ReadLine(), out offset);
 
         // If it is an integer ? continue : restart the while loop.
@@ -556,7 +556,7 @@ string CreateEncryptedMessage(int userOffset)
  * 
  * DecryptEncryptedMessage(int userOffset)
  * 
- * This method decrypts an encrypted Caesar Cypher message. Method
+ * This method decrypts an encrypted Caesar Cipher message. Method
  * takes a user offset and decrypts the encrypted message.
  * 
  */
